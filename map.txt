@@ -1,0 +1,17 @@
+{
+    "main" : {
+        "title" : "Welcome",
+        "text" : "I enjoy writing js!",
+        "children" : {
+            "second" : {
+                "title" : "Second",
+                "text" : "This is the second object.",
+                "children" : {}
+            },
+            "third" : {
+                "title" : "Third",
+                "text" : "And this is the third."
+            }
+        }
+    }
+}
