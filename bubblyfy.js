@@ -1,25 +1,23 @@
-(function(){
-    'use strict';
-    
-    var bubblyfy = function(){
-        
-        if(bubblyfy.instance){
-            return bubblyfy.instance;
+var bubbly = (function () {
+    "use strict";
+    var instance;
+    function bubblyfy(str) {
+        if (instance) {
+            return instance;
         }
-        
-        bubblyfy.instance = this;
-        
-        this.init();
+        instance = this;
+        this.init(str);
     }
     
     bubblyfy.prototype = {
-        init : function(){
-             
+        init : function(str){
+             console.log(str);
         }
     };
     
-    window.onload = function(){
-        var app = new bubblyfy();
-    };
     
+    bubblyfy.getInstance = function (str) {
+        return instance || new bubblyfy(str);
+    }
+    return bubblyfy;
 }());
