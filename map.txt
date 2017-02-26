@@ -5,8 +5,7 @@
         "children" : {
             "second" : {
                 "title" : "Second",
-                "text" : "This is the second object.",
-                "children" : {}
+                "text" : "This is the second object."
             },
             "third" : {
                 "title" : "Third",

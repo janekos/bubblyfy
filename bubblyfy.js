@@ -6,16 +6,17 @@ var bubbly = (function () {
             return instance;
         }
         instance = this;
-        this.init(path);
+        this.d = document;
+        this.get(path);
     }
     
     bubblyfy.prototype = {
-        init : function(path){
+        get : function(path){
             
             var xhttp = new XMLHttpRequest();
             xhttp.onload = function() {
                 if (this.status == 200) {
-                    instance.build(JSON.parse(this.responseText));
+                    instance.init(JSON.parse(this.responseText));
                 }else if(this.status == 404){
                     console.log("File not found.");
                 }else{
@@ -27,23 +28,74 @@ var bubbly = (function () {
             xhttp.send();
         },
         
-        build : function(data){
-            var str = this.iterate(data);
+        init : function(data){
+            var str = this.generate(data, Object.keys(data)[0]);
+            document.getElementById("main_view").innerHTML = str;
+            this.bindEvents();
             console.log(str);
         },
         
-        iterate: function(data){            
-            var str = "";            
+        /*generate : function(data, className){            
+            var str = "";
             for(var obj in data){
-                if(data[obj] != null && typeof data[obj] == 'object'){
-                    str += this.iterate(data[obj]);
+                //var key = Object.keys(data)[Object.keys(data).indexOf(obj)];
+                if(typeof data[obj] == 'object' && obj != "children"){
+                    console.log(className);
+                    str += "<div class='node "+ className +"'>";
+                }
+                if(data[obj] != null && typeof data[obj] == 'object'){                    
+                    str += this.generate(data[obj], obj);
                 }else{
-                    if(typeof data[obj] != 'object'){                        
-                        str += data[obj] + "/n";
+                    if(typeof data[obj] != 'object'){
+                        if(obj == "title"){
+                            str +=  "<h1 class='"+ className +"'>" + data[obj] + "</h1>";
+                        }else if(obj == "text"){
+                            str +=  "<p class='"+ className +"'>" + data[obj] + "</p>";
+                        }
                     }
+                }
+                if(typeof data[obj] == 'object' && obj != "children"){
+                    str += "</div>";
                 }
             }           
             return str;
+        },*/
+        
+        generate : function(data, className){            
+            var str = "";
+            for(var obj in data){
+                if(typeof data[obj] == 'object' && obj != "children"){
+                    console.log(className);
+                    str += "<div class='node "+ className +"'>";
+                }
+                if(obj == "title"){
+                    str +=  "<h1 class='"+ className +"'>" + data[obj] + "</h1>";
+                }else if(obj == "text"){
+                    str +=  "<p class='"+ className +"'>" + data[obj] + "</p>";
+                }else if(obj == "children"){
+                    for(var objin in data[obj]){
+                        str += this.generate(data[obj], objin);                        
+                    }
+                }
+                if(typeof data[obj] == 'object' && obj != "children"){
+                    str += "</div>";
+                }
+            }           
+            return str;
+        },
+        
+        bindEvents : function(){
+            this.nodes();
+        },
+        
+        nodes : function(){
+            var nodes = document.getElementsByClassName("node");
+            for (var i = 0, len = nodes.length; i < len; i++) {
+                nodes[i].addEventListener("click", function(e){
+                    console.log(e);
+                });
+            }
+            //console.log(nodes);
         }
     };    
     
