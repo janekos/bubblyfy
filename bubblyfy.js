@@ -48,7 +48,11 @@ var bubbly = (function () {
                 if(count == 1){
                     CSS += "div."+key+"holder { position: absolute; text-align: center; top: 0; left: 0; right: 0; bottom: 0; height: "+data[key].size+"px; width: "+data[key].size+"px; margin: auto;} div[class$='holder']:not(:first-child){position:absolute; height: 0px; top: 50%; left: 50%;} .node{ border-radius: 9999px; position: absolute;} div."+key+"{ width: 100%; height: 100%;}";
                 }else{
-                    CSS += "."+key+"holder{ width: "+data[key].orbit+"px; animation: "+data[key].rotation+" "+data[key].speed+"s infinite linear; transform-origin: top left;} ."+key+"{ right:-"+data[key].size+"px; max-width: "+data[key].size+"px; max-height: "+data[key].size+"px; top: -"+(data[key].size)/2+"px;}";
+                    CSS += "."+key+"holder{ width: "+data[key].orbit+"px; animation: "+data[key].rotation+" "+data[key].speed+"s infinite linear; transform-origin: top left;} ."+key+"{ right:-"+data[key].size+"px; max-width: "+data[key].size+"px; max-height: "+data[key].size+"px; min-width: "+data[key].size+"px; min-height: "+data[key].size+"px; top: -"+(data[key].size)/2+"px;}";
+                }
+                
+                if(data[key].border){
+                    CSS += "div."+key+"{border:"+data[key].border+";}";
                 }
                     
                 HTML += "<div class='"+key+"holder'><div class='node "+key+"'>";

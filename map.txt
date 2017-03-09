@@ -3,6 +3,7 @@
         "title" : "Welcome",
         "text" : "I enjoy writing js!",
         "size":"200",
+        "border":"1px solid black",
         "children" : {
             "second" : {
                 "title" : "Second",
@@ -11,6 +12,7 @@
                 "size": "40",
                 "rotation": "ccw",
                 "speed":"10",
+                "border":"1px solid black",
                 "children" : {
                     "fifth" : {
                         "title" : "fifth",
@@ -18,7 +20,8 @@
                         "orbit": "40",
                         "size": "30",
                         "rotation": "cw",
-                        "speed":"5"
+                        "speed":"5",
+                        "border":"1px solid black"
                     }
                 }
             },
@@ -28,7 +31,8 @@
                 "orbit": "300",
                 "size": "60",
                 "rotation": "cw",
-                "speed":"7"
+                "speed":"7",
+                "border":"1px solid black"
             },
             "fourth" : {
                 "title" : "fourth",
@@ -36,7 +40,8 @@
                 "orbit": "500",
                 "size": "100",
                 "rotation": "ccw",
-                "speed":"14"
+                "speed":"14",
+                "border":"1px solid black"
             }
         }
     }
