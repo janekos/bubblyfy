@@ -6,7 +6,6 @@ var bubbly = (function () {
             return instance;
         }
         instance = this;
-        this.d = document;
         this.get(path);
     }
     
@@ -29,48 +28,43 @@ var bubbly = (function () {
         },
         
         init : function(data){
-            var str = this.generate(data/*, Object.keys(data)[0]*/);
-            document.getElementById("main_view").innerHTML = str;
+            var pageCode = this.generateViewCode(data);
+            document.getElementById("main_view").innerHTML = pageCode.HTML;
+            document.getElementsByTagName("head")[0].innerHTML += pageCode.CSS;
             //this.bindEvents();
-            console.log(str);
+            //console.log(HTML);
         },
-        /*
-        generate : function(data, className){            
-            var str = "";
-            for(var obj in data){
-                if(typeof data[obj] == 'object' && obj != "children"){
-                    console.log(className);
-                    str += "<div class='node "+ className +"'>";
-                }
-                if(obj == "title"){
-                    str +=  "<h1 class='"+ className +"'>" + data[obj] + "</h1>";
-                }else if(obj == "text"){
-                    str +=  "<p class='"+ className +"'>" + data[obj] + "</p>";
-                }else if(obj == "children"){
-                    for(var objin in data[obj]){
-                        str += this.generate(data[obj], objin);                        
-                    }
-                }
-                if(typeof data[obj] == 'object' && obj != "children"){
-                    str += "</div>";
-                }
-            }           
-            return str;
-        },*/
-        generate : function(data){
-            var str ="";
+        
+        generateViewCode : function(data, count = 0){
+            
+            count += 1;
+            var HTML = "";
+            var CSS = count == 1 ? "<style>" : "";
             var keyCount = Object.keys(data).length;
+            
             for(var i = 0; i< keyCount; i++){
                 var key = Object.keys(data)[i];
-                str += "<div class='"+key+"holder'><div class='node "+key+"'>";
-                str += "<h1 class='"+key+"'>" + data[key].title + "</h1>";
-                str += "<p class='"+key+"'>" + data[key].text + "</p>";
-                if(data[key].children){
-                    str += this.generate(data[key].children);
+                
+                if(count == 1){
+                    CSS += "div."+key+"holder { position: absolute; text-align: center; top: 0; left: 0; right: 0; bottom: 0; height: "+data[key].size+"px; width: "+data[key].size+"px; margin: auto;} div[class$='holder']:not(:first-child){position:absolute; height: 0px; top: 50%; left: 50%;} .node{ border-radius: 9999px; position: absolute;} div."+key+"{ width: 100%; height: 100%;}";
+                }else{
+                    CSS += "."+key+"holder{ width: "+data[key].orbit+"px; animation: "+data[key].rotation+" "+data[key].speed+"s infinite linear; transform-origin: top left;} ."+key+"{ right:-"+data[key].size+"px; max-width: "+data[key].size+"px; max-height: "+data[key].size+"px; top: -"+(data[key].size)/2+"px;}";
                 }
-                str += "</div></div>";
+                    
+                HTML += "<div class='"+key+"holder'><div class='node "+key+"'>";
+                HTML += "<h1 class='"+key+"'>" + data[key].title + "</h1>";
+                HTML += "<p class='"+key+"'>" + data[key].text + "</p>";
+                if(data[key].children){
+                    var objHTML = this.generateViewCode(data[key].children, count);
+                    CSS += objHTML.CSS;
+                    HTML += objHTML.HTML;
+                }
+                HTML += "</div></div>";
             }
-            return str;
+            
+            CSS += count == 1 ? "@keyframes cw { from {transform:rotate(0deg) } to {transform:rotate(360deg) }} @keyframes ccw { from {transform:rotate(0deg) } to {transform:rotate(-360deg) }}</style>" : "";
+                
+            return {"HTML": HTML, "CSS": CSS};
         },
         
         bindEvents : function(){
