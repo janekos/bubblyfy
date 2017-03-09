@@ -29,38 +29,12 @@ var bubbly = (function () {
         },
         
         init : function(data){
-            var str = this.generate(data, Object.keys(data)[0]);
+            var str = this.generate(data/*, Object.keys(data)[0]*/);
             document.getElementById("main_view").innerHTML = str;
-            this.bindEvents();
+            //this.bindEvents();
             console.log(str);
         },
-        
-        /*generate : function(data, className){            
-            var str = "";
-            for(var obj in data){
-                //var key = Object.keys(data)[Object.keys(data).indexOf(obj)];
-                if(typeof data[obj] == 'object' && obj != "children"){
-                    console.log(className);
-                    str += "<div class='node "+ className +"'>";
-                }
-                if(data[obj] != null && typeof data[obj] == 'object'){                    
-                    str += this.generate(data[obj], obj);
-                }else{
-                    if(typeof data[obj] != 'object'){
-                        if(obj == "title"){
-                            str +=  "<h1 class='"+ className +"'>" + data[obj] + "</h1>";
-                        }else if(obj == "text"){
-                            str +=  "<p class='"+ className +"'>" + data[obj] + "</p>";
-                        }
-                    }
-                }
-                if(typeof data[obj] == 'object' && obj != "children"){
-                    str += "</div>";
-                }
-            }           
-            return str;
-        },*/
-        
+        /*
         generate : function(data, className){            
             var str = "";
             for(var obj in data){
@@ -82,6 +56,21 @@ var bubbly = (function () {
                 }
             }           
             return str;
+        },*/
+        generate : function(data){
+            var str ="";
+            var keyCount = Object.keys(data).length;
+            for(var i = 0; i< keyCount; i++){
+                var key = Object.keys(data)[i];
+                str += "<div class='"+key+"holder'><div class='node "+key+"'>";
+                str += "<h1 class='"+key+"'>" + data[key].title + "</h1>";
+                str += "<p class='"+key+"'>" + data[key].text + "</p>";
+                if(data[key].children){
+                    str += this.generate(data[key].children);
+                }
+                str += "</div></div>";
+            }
+            return str;
         },
         
         bindEvents : function(){
@@ -95,7 +84,6 @@ var bubbly = (function () {
                     console.log(e);
                 });
             }
-            //console.log(nodes);
         }
     };    
     
