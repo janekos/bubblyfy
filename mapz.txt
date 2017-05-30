@@ -2,7 +2,7 @@
     "main" : {
         "title" : "Welcome",
         "text" : "I enjoy writing js!",
-        "size":"135",
+        "size":"200",
         "border":"1px solid black",
         "children" : {
             "second" : {

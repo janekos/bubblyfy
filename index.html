@@ -5,16 +5,23 @@
     <title>Bubblyfy.js</title>
     <script src="bubblyfy.js"></script>
     <script>
-        var asd = new bubbly("map.txt");
+        let div1 = new bubbly("map.txt", "mainView");
     </script>
     <style>
         html, body{
             margin: 0px;
             padding: 0px;            
         }
+        
+        #mainView{
+            width: 1000px;
+            height: 1000px;
+            border: 1px solid red;
+        }
     </style>
 </head>
 <body>
     <div id="mainView"></div>
+    <div id="secdiv"></div>
 </body>
 </html>
