@@ -48,10 +48,9 @@ class bubbly{
                     CSS += "div."+key+"holder {"+ 
                                 "position: absolute;"+
                                 "text-align: center;"+
-                                "top: 0;"+
-                                "left: 0;"+ 
-                                "right: 0;"+ 
-                                "bottom: 0;"+ 
+                                "top: 50%;"+
+                                "left: 50%;"+
+                                "transform: translate(-50%, -50%);"+
                                 "height: "+data[key].size+"px;"+ 
                                 "width: "+data[key].size+"px;"+ 
                                 "margin: auto;}"+ 
@@ -130,7 +129,7 @@ class bubbly{
         var nodes = document.getElementsByClassName("node");
         for (var i = 0, len = nodes.length; i < len; i++) {
             nodes[i].addEventListener("click", function(){
-                console.log(this.id);
+                console.log(this.classList);
             });
         }
     }
