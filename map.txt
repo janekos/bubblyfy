@@ -44,5 +44,9 @@
                 "border":"1px solid black"
             }
         }
+    },
+    "CSS" : {
+        "overflow-x": "hidden",
+        "overflow-y": "hidden"
     }
 }
