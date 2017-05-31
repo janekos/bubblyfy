@@ -48,6 +48,7 @@ class bubbly{
                     CSS += "div."+key+"holder {"+ 
                                 "position: absolute;"+
                                 "text-align: center;"+
+                                "z-index: 0;"+
                                 "top: 50%;"+
                                 "left: 50%;"+
                                 "transform: translate(-50%, -50%);"+
@@ -59,12 +60,13 @@ class bubbly{
                                 "height: 0px;"+ 
                                 "top: 50%;"+ 
                                 "left: 50%;}"+ 
-                            ".node{"+ 
-                                "border-radius: 9999px;"+ 
+                            ".node{"+
                                 "position: absolute;}"+ 
-                            "div."+key+"{"+ 
+                            "div."+key+", div#"+key+"{"+ 
                                 "width: 100%;"+ 
-                                "height: 100%;";
+                                "height: 100%;}";
+                    CSS += "div#"+key+"{"+
+                                "border-radius: 9999px;";
                             if(data[key].border){
                                 CSS += "border:"+data[key].border+";";
                             }
@@ -77,17 +79,28 @@ class bubbly{
                             }
                             CSS += "}";
                 }else{
-                    CSS += "div."+key+"holder{"+ 
-                                "width: "+data[key].orbit+"px;"+ 
+                    CSS += "div."+key+"holder{"+
+                                "z-index: -"+count+";"+
+                                "width: "+data[key].orbit+"px;"+
                                 "animation: "+data[key].rotation+" "+data[key].speed+"s infinite linear;"+ 
-                                "transform-origin: top left;}"+ 
-                            "div."+key+"{"+ 
+                                "transform-origin: top left;";
+                    
+                            if(data[key].lineToParent){
+                                CSS += "border:"+data[key].lineToParent+";";
+                            }
+                    
+                    CSS +=      "} div#"+key+":hover{"+
+                                "width:"+(data[key].size)*2+"px;"+
+                                "height:"+(data[key].size)*2+"px;"+
+                            "}"+
+                            "div."+key+", #"+key+"{"+
                                 "right:-"+data[key].size+"px;"+ 
-                                "max-width: "+data[key].size+"px;"+ 
-                                "max-height: "+data[key].size+"px;"+ 
-                                "min-width: "+data[key].size+"px;"+ 
-                                "min-height: "+data[key].size+"px;"+ 
-                                "top: -"+(data[key].size)/2+"px;";
+                                "width: "+data[key].size+"px;"+ 
+                                "height: "+data[key].size+"px;"+ 
+                                "top: -"+(data[key].size)/2+"px;}";
+                    CSS += "div#"+key+"{"+
+                            "transition: all 0.2s ease-in-out;"+
+                            "border-radius: 9999px;";
                             if(data[key].border){
                                 CSS += "border:"+data[key].border+";";
                             }
@@ -100,17 +113,14 @@ class bubbly{
                             }
                             CSS+="}";
                 }
-
-                if(data[key].border){
-                    CSS += "div."+key+"{"+
-                        "border:"+data[key].border+";}";
-                }
                 
                 HTML += "<div class='"+key+"holder'>"+
-                            "<div class='node "+key+"' style='cursor: pointer; display: flex; justify-content: center; align-items: center;'>"+
-                                "<div class='textholder' style='position: relative;'>"+
-                                    "<div class='"+key+"h1' style='margin: 0; padding: 0; font-size:"+(data[key].size)*0.2370+"px'><b>" + data[key].title + "</b></div>"+
-                                    "<div class='"+key+"span' style='margin: 0; padding: 0; font-size:"+(data[key].size)*0.1185+"px'>" + data[key].text + "</div>"+
+                            "<div class='node "+key+"'>"+
+                                "<div id='"+key+"' style='cursor: pointer; display: flex; justify-content: center; align-items: center;'>"+
+                                    "<div class='textholder' style='position: relative; pointer-events: none;'>"+
+                                        "<div class='"+key+"h1' style='margin: 0; padding: 0; font-size:"+(data[key].size)*0.2370+"px'><b>" + data[key].title + "</b></div>"+
+                                        "<div class='"+key+"span' style='margin: 0; padding: 0; font-size:"+(data[key].size)*0.1185+"px'>" + data[key].text + "</div>"+
+                                    "</div>"+
                                 "</div>";
                 if(data[key].children){
                     var objHTML = this.generateViewCode(data[key].children, count);
@@ -148,9 +158,13 @@ class bubbly{
     nodes(){
         var nodes = document.getElementsByClassName("node");
         for (var i = 0, len = nodes.length; i < len; i++) {
-            nodes[i].addEventListener("click", function(){
-                console.log(this.classList);
+            nodes[i].addEventListener("click", function(e) {
+                console.log(e.target.id);
             });
         }
+    }
+    
+    enlarge(){
+        
     }
 }
