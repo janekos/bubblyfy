@@ -2,45 +2,90 @@
     "main" : {
         "title" : "Welcome",
         "text" : "I enjoy writing js!",
-        "size":"135",
+        "size":"200",
         "border":"1px solid black",
+        "fontColor":"red",
+        "background":"url('http://dreamicus.com/data/cat/cat-01.jpg') no-repeat center",
         "children" : {
             "second" : {
                 "title" : "Second",
                 "text" : "This is the second object.",
                 "orbit": "150",
-                "size": "40",
-                "rotation": "ccw",
+                "size": "30",
+                "rotation": "cw",
                 "speed":"10",
-                "border":"1px solid black",
-                "children" : {
-                    "fifth" : {
-                        "title" : "fifth",
-                        "text" : "And this is the fifth.",
-                        "orbit": "40",
-                        "size": "30",
-                        "rotation": "cw",
-                        "speed":"5",
-                        "border":"1px solid black"
-                    }
-                }
+                "border":"1px solid black"
             },
             "third" : {
                 "title" : "Third",
                 "text" : "And this is the third.",
-                "orbit": "300",
-                "size": "60",
+                "orbit": "190",
+                "size": "30",
                 "rotation": "cw",
-                "speed":"7",
+                "speed":"11",
                 "border":"1px solid black"
             },
             "fourth" : {
                 "title" : "fourth",
                 "text" : "And this is the fourth.",
-                "orbit": "500",
-                "size": "100",
-                "rotation": "ccw",
+                "orbit": "230",
+                "size": "30",
+                "rotation": "cw",
+                "speed":"12",
+                "border":"1px solid black"
+            },
+            "fifth" : {
+                "title" : "fifth",
+                "text" : "And this is the fifth.",
+                "orbit": "270",
+                "size": "30",
+                "rotation": "cw",
+                "speed":"13",
+                "border":"1px solid black"
+            },
+            "sixth" : {
+                "title" : "sixth",
+                "text" : "And this is the sixth.",
+                "orbit": "310",
+                "size": "30",
+                "rotation": "cw",
                 "speed":"14",
+                "border":"1px solid black"
+            },
+            "seventh" : {
+                "title" : "seventh",
+                "text" : "And this is the seventh.",
+                "orbit": "350",
+                "size": "30",
+                "rotation": "cw",
+                "speed":"15",
+                "border":"1px solid black"
+            },
+            "eigth" : {
+                "title" : "eigth",
+                "text" : "And this is the eigth.",
+                "orbit": "390",
+                "size": "30",
+                "rotation": "cw",
+                "speed":"16",
+                "border":"1px solid black"
+            },
+            "ninth" : {
+                "title" : "ninth",
+                "text" : "And this is the ninth.",
+                "orbit": "430",
+                "size": "30",
+                "rotation": "cw",
+                "speed":"17",
+                "border":"1px solid black"
+            },
+            "tenth" : {
+                "title" : "tenth",
+                "text" : "And this is the tenth.",
+                "orbit": "470",
+                "size": "30",
+                "rotation": "cw",
+                "speed":"18",
                 "border":"1px solid black"
             }
         }

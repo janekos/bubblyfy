@@ -25,8 +25,8 @@ class bubbly{
     }
         
     init(data){
-        var pageMainCss = this.generateMainCssCode(data.CSS);
-        var pageCode = this.generateViewCode(data);
+        let pageMainCss = this.generateMainCssCode(data.CSS);
+        let pageCode = this.generateViewCode(data);
         document.getElementById(this.targetDiv).innerHTML = pageCode.HTML;
         document.getElementsByTagName("head")[0].innerHTML += pageMainCss + pageCode.CSS;
         this.bindEvents();
@@ -64,33 +64,53 @@ class bubbly{
                                 "position: absolute;}"+ 
                             "div."+key+"{"+ 
                                 "width: 100%;"+ 
-                                "height: 100%;}";
+                                "height: 100%;";
+                            if(data[key].border){
+                                CSS += "border:"+data[key].border+";";
+                            }
+                            if(data[key].fontColor){
+                                CSS += "color:"+data[key].fontColor+";";
+                            }
+                            if(data[key].background){
+                                CSS += "background:"+data[key].background+";"+
+                                       "background-size:" + data[key].size + "px " + data[key].size+"px;";
+                            }
+                            CSS += "}";
                 }else{
-                    CSS += "."+key+"holder{"+ 
+                    CSS += "div."+key+"holder{"+ 
                                 "width: "+data[key].orbit+"px;"+ 
                                 "animation: "+data[key].rotation+" "+data[key].speed+"s infinite linear;"+ 
                                 "transform-origin: top left;}"+ 
-                            "."+key+"{"+ 
+                            "div."+key+"{"+ 
                                 "right:-"+data[key].size+"px;"+ 
                                 "max-width: "+data[key].size+"px;"+ 
                                 "max-height: "+data[key].size+"px;"+ 
                                 "min-width: "+data[key].size+"px;"+ 
                                 "min-height: "+data[key].size+"px;"+ 
-                                "top: -"+(data[key].size)/2+"px;}";
+                                "top: -"+(data[key].size)/2+"px;";
+                            if(data[key].border){
+                                CSS += "border:"+data[key].border+";";
+                            }
+                            if(data[key].fontColor){
+                                CSS += "color:"+data[key].fontColor+";";
+                            }
+                            if(data[key].background){
+                                CSS += "background:"+data[key].background+";"+
+                                       "background-size:" + data[key].size + "px " + data[key].size+"px;";
+                            }
+                            CSS+="}";
                 }
 
                 if(data[key].border){
                     CSS += "div."+key+"{"+
                         "border:"+data[key].border+";}";
                 }
-
-                /*var style = window.getComputedStyle(document.getElementById(''), null).getPropertyValue('font-size');*/
-                /*margin-top:" + (data[key].size)/3 + "px;*/
+                
                 HTML += "<div class='"+key+"holder'>"+
-                            "<div class='node "+key+"' style=''>"+
-                                "<div class='textholder' style='position: relative; top: 50%; transform: translateY(-50%);'>"+
-                                    "<h1 class='"+key+"' style='margin: 0; padding: 0; font-size:"+(data[key].size)*0.2370+"px'>" + data[key].title + "</h1>"+
-                                    "<p class='"+key+"' style='margin: 0; padding: 0; font-size:"+(data[key].size)*0.1185+"px'>" + data[key].text + "</p>"+
+                            "<div class='node "+key+"' style='cursor: pointer; display: flex; justify-content: center; align-items: center;'>"+
+                                "<div class='textholder' style='position: relative;'>"+
+                                    "<div class='"+key+"h1' style='margin: 0; padding: 0; font-size:"+(data[key].size)*0.2370+"px'><b>" + data[key].title + "</b></div>"+
+                                    "<div class='"+key+"span' style='margin: 0; padding: 0; font-size:"+(data[key].size)*0.1185+"px'>" + data[key].text + "</div>"+
                                 "</div>";
                 if(data[key].children){
                     var objHTML = this.generateViewCode(data[key].children, count);
